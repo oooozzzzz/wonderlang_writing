@@ -48,7 +48,7 @@ const processUsersList = async (usersList, ctx, path, text, work) => {
 		await delay(500);
 		try {
 			await ctx.api.sendDocument(id, new InputFile(path), {
-				caption: `#${ctx.from.first_name} #${work}`,
+				caption: `#${ctx.from.username} #${work} \n@${ctx.from.username}`,
 			});
 			return true;
 		} catch (error) {
@@ -75,7 +75,7 @@ module.exports.copyMessageToUsers = async (ctx) => {
 };
 
 const sendWorkToAdmins = async (ctx, path, text, work) => {
-	const usersList = await getNotifiedUsers();
+	const usersList = [{ tg_id: "-4505168225" }];
 	await processUsersList(usersList, ctx, path, text, work);
 };
 
@@ -156,7 +156,7 @@ const deleteFile = async (path) => {
 };
 module.exports.replyWithWordDocument = async (text, ctx, msg, work) => {
 	let docx = officegen("docx");
-	const name = ctx.from.first_name.toLowerCase();
+	const name = ctx.from.username;
 	const path = `docs/${name}_${work}.docx`;
 	let pObj = await docx.createP();
 	await pObj.addText(text);
@@ -172,3 +172,8 @@ module.exports.replyWithWordDocument = async (text, ctx, msg, work) => {
 	});
 	return path;
 };
+
+module.exports.isChatMember = async (chatId, userId, ctx) => {
+	const chatMember = await ctx.api.getChatMember(chatId, userId);
+  return chatMember.status === "member";
+}

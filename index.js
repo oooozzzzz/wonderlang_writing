@@ -3,13 +3,17 @@ const startHandler = require("./handlers/startHandler");
 const adminHandler = require("./handlers/adminHandler");
 const { toMainMenu, toAdminMenu, toOwnerMenu } = require("./routes");
 const ownerHandler = require("./handlers/ownerHandler");
-const { separate } = require("./services");
+const { separate, isChatMember } = require("./services");
 const { votePollHandler } = require("./handlers/votePollHandler");
 const AIHandler = require("./handlers/AIHandler");
 const { getAdminPassword, getOwnerPassword } = require("./password");
 const photoHandler = require("./handlers/photoHandler");
 
 bot.command("start", (ctx) => startHandler(ctx));
+bot.command("chat_id", async (ctx) => {
+	ctx.msg.delete();
+	ctx.reply(ctx.chat.id);
+});
 
 bot.callbackQuery("toMenu", async (ctx) => {
 	toMainMenu(ctx);
@@ -54,6 +58,9 @@ bot.on(":text", async (ctx) => {
 	}
 });
 
+bot.on("message", async (ctx) => {
+	console.log(ctx.chat);
+});
 // bot.on(":photo", async (ctx) => {
 // 	let text = ctx.msg.caption
 // 	if (!text) {

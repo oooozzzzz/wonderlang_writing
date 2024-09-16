@@ -1,7 +1,8 @@
 const { Menu } = require("@grammyjs/menu");
-const { getDirective } = require("../openai");
+
 const { userGetsNotifications } = require("../db");
 const { toggleNotifications } = require("../services");
+const { getDirective } = require("../directives");
 
 const adminMenu = new Menu("adminMenu")
 	.text("Управление промпатами", async (ctx) => {
@@ -17,7 +18,7 @@ const adminMenu = new Menu("adminMenu")
 		},
 		async (ctx) => {
 			await toggleNotifications(ctx.from.id);
-			ctx.menu.update(); // update the menu!
+			ctx.menu.update(); 
 		}
 	)
 	.row()

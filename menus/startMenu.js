@@ -1,21 +1,43 @@
 const { Menu } = require("@grammyjs/menu");
 const { myDiscountsMenu } = require("./myDiscountsMenu");
-const { createWordDocument } = require("../services");
+const { createWordDocument, isChatMember } = require("../services");
 
-const startMenu = new Menu("startMenu")
+const startMenu = new Menu("startMenu", { autoAnswer: false })
 	.text("Correction", async (ctx) => {
-		ctx.msg.delete();
-		await ctx.conversation.enter("gptCorrection");
+		if (await isChatMember(-1002430837732, ctx.from.id, ctx)) {
+			await ctx.msg.delete();
+			await ctx.conversation.enter("gptCorrection");
+		} else {
+			await ctx.api.answerCallbackQuery(ctx.update.callback_query.id, {
+				text: "У вас нет доступа",
+				show_alert: true,
+			});
+		}
 	})
 	.row()
 	.text("Vocabularly booster", async (ctx) => {
-		await ctx.msg.delete();
-		await ctx.conversation.enter("vocabBooster");
+		if (await isChatMember(-1002430837732, ctx.from.id, ctx)) {
+			await ctx.msg.delete();
+			await ctx.conversation.enter("vocabBooster");
+		} else {
+			await ctx.api.answerCallbackQuery(ctx.update.callback_query.id, {
+				text: "У вас нет доступа",
+				show_alert: true,
+			});
+		}
 	})
 	.row()
 	.text("IELTS essay upgrade", async (ctx) => {
-		await ctx.msg.delete();
-		await ctx.conversation.enter("essayUpgrade");
+		if (await isChatMember(-1002430837732, ctx.from.id, ctx)) {
+			await ctx.msg.delete();
+			await ctx.conversation.enter("essayUpgrade");
+		} else {
+			await ctx.api.answerCallbackQuery(ctx.update.callback_query.id, {
+				text: "У вас нет доступа",
+				show_alert: true,
+			});
+		}
+		
 	});
 
 const finishConversationMenu = new Menu("finishConversationMenu").back(
