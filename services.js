@@ -175,5 +175,5 @@ module.exports.replyWithWordDocument = async (text, ctx, msg, work) => {
 
 module.exports.isChatMember = async (chatId, userId, ctx) => {
 	const chatMember = await ctx.api.getChatMember(chatId, userId);
-  return chatMember.status === "member";
+  return chatMember.status != "left";
 }
