@@ -20,7 +20,7 @@ const gptCorrection = async (conversation, ctx) => {
 		return;
 	} else {
 		ctx.api.sendChatAction(ctx.chat.id, "typing");
-		const response = await getGPTanswer(message, getDirective("correction"));
+		const response = await getGPTanswer(message, await getDirective("correction"));
 		await replyWithWordDocument(response, ctx, message, "correction");
 
 		try {
@@ -48,7 +48,7 @@ const vocabBooster = async (conversation, ctx) => {
 		return;
 	} else {
 		ctx.api.sendChatAction(ctx.chat.id, "typing");
-		const response = await getGPTanswer(message, getDirective("vocab_booster"));
+		const response = await getGPTanswer(message, await getDirective("vocab_booster"));
 		await replyWithWordDocument(response, ctx, message, "vocab_booster");
 		try {
 			ctx.api.deleteMessage(question.chat.id, question.message_id);
@@ -77,7 +77,7 @@ const essayUpgrade = async (conversation, ctx) => {
 		ctx.api.sendChatAction(ctx.chat.id, "typing");
 		const response = await getGPTanswer(
 			message,
-			getDirective("IELTS_essay_upgrade")
+			await getDirective("IELTS_essay_upgrade")
 		);
 		await replyWithWordDocument(response, ctx, message, "IELTS_essay_upgrade");
 		try {
