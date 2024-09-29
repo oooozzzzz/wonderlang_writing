@@ -26,7 +26,7 @@ const promptsMenu = new Menu("promptsMenu")
 		ctx.menu.nav("changeCorrectionMenu");
 	})
 	.row()
-	.text("Vocabularly booster", async (ctx) => {
+	.text("Vocabulary booster", async (ctx) => {
 		const prompt = await getDirective("vocab_booster");
 		await ctx.msg.editText(`Текущий промт \n\n${prompt}`, {
 			parse_mode: "HTML",
