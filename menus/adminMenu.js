@@ -5,7 +5,7 @@ const { toggleNotifications } = require("../services");
 const { getDirective } = require("../directives");
 
 const adminMenu = new Menu("adminMenu")
-	.text("Управление промпатами", async (ctx) => {
+	.text("Управление промптами", async (ctx) => {
 		ctx.menu.nav("promptsMenu");
 		await ctx.msg.editText("Выберите промпт");
 	})

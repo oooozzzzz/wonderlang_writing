@@ -15,7 +15,7 @@ const startMenu = new Menu("startMenu", { autoAnswer: false })
 		}
 	})
 	.row()
-	.text("Vocabularly booster", async (ctx) => {
+	.text("Vocabulary booster", async (ctx) => {
 		if (await isChatMember(-1002430837732, ctx.from.id, ctx)) {
 			await ctx.msg.delete();
 			await ctx.conversation.enter("vocabBooster");
