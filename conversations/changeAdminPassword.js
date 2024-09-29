@@ -1,6 +1,7 @@
+const { getOwnerPassword } = require("../db");
 const { cancelKeyboard } = require("../keyboards/cancelKeyboard");
 const { toOwnerMenuKeyboard } = require("../keyboards/toOwnerMenu");
-const { getOwnerPassword, setNewAdminPassword } = require("../password");
+const { setNewAdminPassword } = require("../password");
 
 const changeAdminPassword = async (conversation, ctx) => {
 	ctx.reply("Введите пароль владельца", { reply_markup: cancelKeyboard });
@@ -12,7 +13,7 @@ const changeAdminPassword = async (conversation, ctx) => {
 			reply_markup: toOwnerMenuKeyboard,
 		});
 	}
-	if (curPassword !== getOwnerPassword()) {
+	if (curPassword !== await getOwnerPassword()) {
 		return ctx.reply(
 			"Неверный пароль. Начните процедуру смены пароля заново.",
 			{

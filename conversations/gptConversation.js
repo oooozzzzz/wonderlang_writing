@@ -101,7 +101,7 @@ const changeCorrectionPrompt = async (conversation, ctx) => {
 		});
 		return;
 	} else {
-		setDirective("correction", message);
+		await setDirective("correction", message);
 		ctx.reply("Промпт изменен", {
 			reply_markup: toAdminMenuKeyboard,
 		});
@@ -125,7 +125,7 @@ const changeVocabBoosterPrompt = async (conversation, ctx) => {
 		});
 		return;
 	} else {
-		setDirective("vocab_booster", message);
+		await setDirective("vocab_booster", message);
 		ctx.reply("Промпт изменен", {
 			reply_markup: toAdminMenuKeyboard,
 		});
@@ -150,7 +150,7 @@ const changeEssayUpgraderPrompt = async (conversation, ctx) => {
 		});
 		return;
 	} else {
-		setDirective("IELTS_essay_upgrade", message);
+		await setDirective("IELTS_essay_upgrade", message);
 		ctx.reply("Промпт изменен", {
 			reply_markup: toAdminMenuKeyboard,
 		});

@@ -1,3 +1,5 @@
+const { getPrompt, setPrompt } = require("./db");
+
 const directives = {
 	correction: `You are an English tutor proofreading ESL students’ essays. You must take the text below and return it without any introductory sentence from you. In the text, you must 
 1. identify all gross grammar and vocabulary mistakes (look at tenses, subject-verb agreement, articles, prepositions, verb patterns, syntax, punctuation, spelling, word choice, collocations).
@@ -9,11 +11,12 @@ const directives = {
 	IELTS_essay_upgrade: "You are an IELTS tutor. Please, help a student rewrite the essay below so that it is more coherent and better aligns both with the topic and with IELTS essay criteria. The thesis statement should include the main ideas from body paragraphs, so avoid formulas like “this essay will discuss…”. Please, highlight all advanced expressions that you introduced into your version of the essay in bold and provide a list with definitions under the text. The topic is the first line in the message. The topic is not to be corrected",
 };
 
-const getDirective = (item) => {
-	return directives[item];
+const getDirective = async (label) => {
+	const prompt = await getPrompt(label)
+	return prompt;
 }
 
-const setDirective = (item, value) => {
-  directives[item] = value;
+const setDirective = async (label, value) => {
+  await setPrompt(label, value);
 }
-module.exports = { directives, getDirective, setDirective };
+module.exports = { getDirective, setDirective };

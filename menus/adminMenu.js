@@ -31,7 +31,7 @@ const adminMenu = new Menu("adminMenu")
 
 const promptsMenu = new Menu("promptsMenu")
 	.text("Correction", async (ctx) => {
-		const prompt = getDirective("correction");
+		const prompt =await getDirective("correction");
 		await ctx.msg.editText(`Текущий промт \n\n${prompt}`, {
 			parse_mode: "HTML",
 		});
@@ -39,7 +39,7 @@ const promptsMenu = new Menu("promptsMenu")
 	})
 	.row()
 	.text("Vocabularly booster", async (ctx) => {
-		const prompt = getDirective("vocab_booster");
+		const prompt = await getDirective("vocab_booster");
 		await ctx.msg.editText(`Текущий промт \n\n${prompt}`, {
 			parse_mode: "HTML",
 		});
@@ -47,7 +47,7 @@ const promptsMenu = new Menu("promptsMenu")
 	})
 	.row()
 	.text("IELTS essay upgrade", async (ctx) => {
-		const prompt = getDirective("IELTS_essay_upgrade");
+		const prompt = await getDirective("IELTS_essay_upgrade");
 		await ctx.msg.editText(`Текущий промт \n\n${prompt}`, {
 			parse_mode: "HTML",
 		});

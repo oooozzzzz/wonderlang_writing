@@ -6,8 +6,8 @@ const ownerHandler = require("./handlers/ownerHandler");
 const { separate, isChatMember } = require("./services");
 const { votePollHandler } = require("./handlers/votePollHandler");
 const AIHandler = require("./handlers/AIHandler");
-const { getAdminPassword, getOwnerPassword } = require("./password");
 const photoHandler = require("./handlers/photoHandler");
+const { getAdminPassword, getOwnerPassword } = require("./db");
 
 bot.command("start", (ctx) => startHandler(ctx));
 bot.command("chat_id", async (ctx) => {
@@ -46,10 +46,10 @@ bot.callbackQuery("cancel", async (ctx) => {
 bot.on(":text", async (ctx) => {
 	const text = ctx.msg.text;
 	switch (text) {
-		case getAdminPassword():
+		case await getAdminPassword():
 			await adminHandler(ctx);
 			break;
-		case getOwnerPassword():
+		case await getOwnerPassword():
 			await ownerHandler(ctx);
 			break;
 		default:
