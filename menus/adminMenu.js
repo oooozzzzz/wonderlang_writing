@@ -10,18 +10,18 @@ const adminMenu = new Menu("adminMenu")
 		await ctx.msg.editText("Выберите промпт");
 	})
 	.row()
-	.text(
-		async (ctx) => {
-			return `Получать уведомления ${
-				await userGetsNotifications(ctx.from.id) ? "🔔" : "🔕"
-			}`;
-		},
-		async (ctx) => {
-			await toggleNotifications(ctx.from.id);
-			ctx.menu.update(); 
-		}
-	)
-	.row()
+	// .text(
+	// 	async (ctx) => {
+	// 		return `Получать уведомления ${
+	// 			await userGetsNotifications(ctx.from.id) ? "🔔" : "🔕"
+	// 		}`;
+	// 	},
+	// 	async (ctx) => {
+	// 		await toggleNotifications(ctx.from.id);
+	// 		ctx.menu.update(); 
+	// 	}
+	// )
+	// .row()
 	.text(
 		(ctx) => ctx.t("close"),
 		async (ctx) => {
