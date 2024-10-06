@@ -37,11 +37,6 @@ bot.callbackQuery("cancel", async (ctx) => {
 	ctx.conversation.exit();
 	ctx.answerCallbackQuery();
 });
-// bot.on(":photo", async (ctx) => {
-// 	const file = await ctx.getFile(); // valid for at least 1 hour
-//   const path = file.file_path; // file path on Bot API server
-//   await ctx.reply(`https://api.telegram.org/file/bot${process.env.TOKEN}/${path}`);
-// })
 
 bot.on(":text", async (ctx) => {
 	const text = ctx.msg.text;
@@ -53,7 +48,7 @@ bot.on(":text", async (ctx) => {
 			await ownerHandler(ctx);
 			break;
 		default:
-			// await AIHandler(ctx);
+			await AIHandler(ctx);
 			break;
 	}
 });
@@ -61,20 +56,9 @@ bot.on(":text", async (ctx) => {
 bot.on("message", async (ctx) => {
 	console.log(ctx.chat);
 });
-// bot.on(":photo", async (ctx) => {
-// 	let text = ctx.msg.caption
-// 	if (!text) {
-//     text = 'смотри'
-//   }
-// 	photoHandler(ctx, text);
-// });
+
 
 bot.callbackQuery(/-/, async (ctx) => {
-	// Взаимодействие с категориями
-	// try {
-	// 	await ctx.msg.delete();
-	// } catch (error) {}
-
 	const { itemName, action } = separate(ctx);
 	switch (action) {
 		case "pref":
@@ -89,7 +73,8 @@ bot.callbackQuery(/-/, async (ctx) => {
 	ctx.answerCallbackQuery();
 });
 
-bot.catch(() => {
+bot.catch((err) => {
+	console.log(err)
 	bot.start();
 });
 bot.start();
