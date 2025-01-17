@@ -65,12 +65,12 @@ module.exports.copyMessageToUsers = async (ctx) => {
 	const { success, failure, atAll } = await processUsersList(
 		usersList,
 		copy,
-		ctx
+		ctx,
 	);
 	await ctx.reply(
 		`Всего отправлено сообщений пользователям: ${atAll}
 Успешно: ${success}, с ошибками: ${failure}.`,
-		{ reply_markup: toAdminMenuKeyboard }
+		{ reply_markup: toAdminMenuKeyboard },
 	);
 };
 
@@ -100,7 +100,7 @@ module.exports.answersToKeyboard = (answers) => {
 	});
 	console.log(labelDataPairs);
 	const buttonRow = labelDataPairs.map(([label, data]) =>
-		InlineKeyboard.text(label, data)
+		InlineKeyboard.text(label, data),
 	);
 	const keyboard = InlineKeyboard.from([buttonRow]);
 	return keyboard;
@@ -117,7 +117,7 @@ module.exports.generateDiscountsText = (discounts) => {
 		return `Доступно скидок: <b>${discounts.length}</b>
 		${discounts.map(
 			(discount) =>
-				`· Скидка в размере <u><b>${discount.value}</b> процентов</u> \n`
+				`· Скидка в размере <u><b>${discount.value}</b> процентов</u> \n`,
 		)}\nСкидка будет действительна в течение 2 часов после активации. Просто покажи администратору сообщение, которое тебе пришлет бот.`;
 	} else return `У вас нет доступных скидок`;
 };
@@ -133,7 +133,7 @@ module.exports.toggleDiscount = async (id, ctx) => {
 	} catch (error) {}
 	await ctx.reply(
 		"Ваша скидка истекла. Следите за обновлениями, чтобы получить еще больше выгоды!",
-		{ reply_markup: toMainMenuKeyboard() }
+		{ reply_markup: toMainMenuKeyboard() },
 	);
 };
 
@@ -175,5 +175,5 @@ module.exports.replyWithWordDocument = async (text, ctx, msg, work) => {
 
 module.exports.isChatMember = async (chatId, userId, ctx) => {
 	const chatMember = await ctx.api.getChatMember(chatId, userId);
-  return chatMember.status != "left";
-}
+	return chatMember.status == "member";
+};

@@ -2,7 +2,7 @@ const { Menu } = require("@grammyjs/menu");
 const { myDiscountsMenu } = require("./myDiscountsMenu");
 const { createWordDocument, isChatMember } = require("../services");
 
-const startMenu = new Menu("startMenu", { autoAnswer: false })
+const startMenu = new Menu("startMenu", { autoAnswer: true })
 	.text("Correction", async (ctx) => {
 		if (await isChatMember(-1002430837732, ctx.from.id, ctx)) {
 			await ctx.msg.delete();
@@ -37,11 +37,10 @@ const startMenu = new Menu("startMenu", { autoAnswer: false })
 				show_alert: true,
 			});
 		}
-		
 	});
 
 const finishConversationMenu = new Menu("finishConversationMenu").back(
-	"Продолжить работу с ботом"
+	"Продолжить работу с ботом",
 );
 
 const backToMenu = new Menu("finishConversationMenu").text(
@@ -49,7 +48,7 @@ const backToMenu = new Menu("finishConversationMenu").text(
 	async (ctx) => {
 		ctx.menu.nav("startMenu");
 		await ctx.msg.editText(ctx.t("start"));
-	}
+	},
 );
 
 startMenu.register([finishConversationMenu, backToMenu]);
